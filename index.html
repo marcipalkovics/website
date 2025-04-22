@@ -166,19 +166,15 @@
   </style>
 </head>
 <body>
-
-  <div class="window" id="draggable-window">
-    <div class="title-bar" id="drag-bar">
-      <div class="buttons">
-        <div class="btn close"></div>
-        <div class="btn minimize"></div>
-        <div class="btn zoom"></div>
-      </div>
-      <div class="title-text">About Me</div>
-      <div style="width: 30px;"></div> <!-- filler -->
-    </div>
     <div class="window" id="aboutWindow">
-      <div class="title-bar" id="aboutTitleBar">About Me</div>
+      <div class="title-bar" id="aboutTitleBar">
+        <div class="buttons">
+          <div class="btn close"></div>
+          <div class="btn minimize"></div>
+          <div class="btn zoom"></div>
+        </div>
+        About Me
+      </div>
       <div class="window-content">
         <img src="https://media.licdn.com/dms/image/v2/D4D03AQE1LYhMEDweaQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1694522284828?e=1750896000&v=beta&t=9KmVpBrqtzgwM-CuxCo2BgR8NGBwqyvHgdmoomWh3KY" alt="Marton Palkovics" class="profile-pic" />
 
@@ -201,13 +197,25 @@
         </div>
       </div>
     </div>
+
+  <div class="window" id="wallpaperWindow">
+      <div class="title-bar" id="wallpaperTitleBar">
+        <div class="buttons">
+          <div class="btn close"></div>
+          <div class="btn minimize"></div>
+          <div class="btn zoom"></div>
+        </div>
+        Change Wallpaper
+      </div>
+      <div class="wallpaper-switcher">
+        <button data-wall="wallpaper1.jpg" style="background-image: url('wallpaper1.jpg');"></button>
+        <button data-wall="wallpaper2.jpg" style="background-image: url('wallpaper2.jpg');"></button>
+        <button data-wall="wallpaper3.jpg" style="background-image: url('wallpaper3.jpg');"></button>
+        <button data-wall="wallpaper4.jpg" style="background-image: url('wallpaper4.jpg');"></button>
+      </div>
+    </div>
    
-   <div class="wallpaper-switcher">
-    <button data-wall="wallpaper1.jpg" style="background-image: url('wallpaper1.jpg');"></button>
-    <button data-wall="wallpaper2.jpg" style="background-image: url('wallpaper2.jpg');"></button>
-    <button data-wall="wallpaper3.jpg" style="background-image: url('wallpaper3.jpg');"></button>
-    <button data-wall="wallpaper4.jpg" style="background-image: url('wallpaper4.jpg');"></button>
-  </div>
+   
     
   <script>
     const aboutWindow = document.getElementById('aboutWindow');
@@ -220,6 +228,27 @@
       function mouseMoveHandler(e) {
         aboutWindow.style.top = `${e.clientY - offsetY}px`;
         aboutWindow.style.left = `${e.clientX - offsetX}px`;
+      }
+    
+      function mouseUpHandler() {
+        document.removeEventListener('mousemove', mouseMoveHandler);
+        document.removeEventListener('mouseup', mouseUpHandler);
+      }
+    
+      document.addEventListener('mousemove', mouseMoveHandler);
+      document.addEventListener('mouseup', mouseUpHandler);
+    };
+
+    const wallpaperWindow = document.getElementById('wallpaperWindow');
+    const wallpaperTitleBar = document.getElementById('wallpaperTitleBar');
+    
+    wallpaperTitleBar.onmousedown = function (e) {
+      let offsetX = e.clientX - wallpaperWindow.offsetLeft;
+      let offsetY = e.clientY - wallpaperWindow.offsetTop;
+    
+      function mouseMoveHandler(e) {
+        wallpaperWindow.style.top = `${e.clientY - offsetY}px`;
+        wallpaperWindow.style.left = `${e.clientX - offsetX}px`;
       }
     
       function mouseUpHandler() {
