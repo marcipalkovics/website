@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Marton Palkovics</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -15,12 +15,23 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      overflow: hidden;
     }
 
     .container {
       text-align: center;
       padding: 2rem;
       max-width: 600px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeSlideIn 1s ease forwards;
+    }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
@@ -39,6 +50,8 @@
       flex-wrap: wrap;
       gap: 1rem;
       justify-content: center;
+      animation: fadeSlideIn 1.2s ease forwards;
+      animation-delay: 0.3s;
     }
 
     .badge {
@@ -86,7 +99,7 @@
         <img src="https://img.icons8.com/ios-glyphs/30/000000/github.png" alt="GitHub" />
         GitHub
       </a>
-      <a href="https://www.linkedin.com/in/your-profile" class="badge" target="_blank">
+      <a href="https://www.linkedin.com/in/palkovics/" class="badge" target="_blank">
         <img src="https://img.icons8.com/ios-glyphs/30/000000/linkedin.png" alt="LinkedIn" />
         LinkedIn
       </a>
