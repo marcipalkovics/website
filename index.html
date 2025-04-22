@@ -278,14 +278,20 @@
       document.addEventListener('mouseup', mouseUpHandler);
     };
 
-    const buttons = document.querySelectorAll('.wallpaper-switcher button');
-  
-    buttons.forEach(btn => {
+    document.querySelectorAll('.wall-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const wallpaper = btn.getAttribute('data-wall');
         document.body.style.backgroundImage = `url('${wallpaper}')`;
+        localStorage.setItem('wallpaper', wallpaper);
       });
     });
+
+    // Load saved wallpaper
+    const saved = localStorage.getItem('wallpaper');
+    if (saved) {
+      document.body.style.backgroundImage = `url('${saved}')`;
+    }
+
   </script>
 
 </body>
