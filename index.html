@@ -42,23 +42,26 @@
     .menu-left {
       font-size: 16px;
       color: black;
+      display: flex;
+      align-items: center;
     }
+
     .menu-bar {
       display: inline-flex;
       margin-left: 20px;
       gap: 10px;
     }
-    
+
     .menu-item {
       position: relative;
       padding: 0 6px;
       cursor: default;
     }
-    
+
     .menu-item:hover .dropdown {
       display: block;
     }
-    
+
     .dropdown {
       display: none;
       position: absolute;
@@ -68,21 +71,22 @@
       border: 2px solid #000;
       box-shadow: 2px 2px 0 #888;
       font-size: 14px;
-      min-width: 120px;
+      min-width: 160px;
       z-index: 9999;
     }
-    
+
     .dropdown-item {
       padding: 4px 10px;
       border-bottom: 1px solid #bbb;
       white-space: nowrap;
+      cursor: pointer;
     }
-    
+
     .dropdown-item:hover {
       background: #000;
       color: #fff;
     }
-    
+
     .dropdown-item:last-child {
       border-bottom: none;
     }
@@ -132,6 +136,7 @@
       left: 50%;
       transform: translateX(-50%);
       cursor: default;
+      z-index: 1000;
     }
 
     .title-bar {
@@ -142,6 +147,15 @@
       align-items: center;
       justify-content: space-between;
       cursor: move;
+    }
+
+    .close-btn {
+      background: #000;
+      color: #fff;
+      font-size: 14px;
+      padding: 0 6px;
+      border: none;
+      cursor: pointer;
     }
 
     .window-content {
@@ -159,28 +173,27 @@
         <div class="menu-item">
           Work
           <div class="dropdown">
-            <div class="dropdown-item">UX/UI Design</div>
-            <div class="dropdown-item">Graphic Design</div>
-            <div class="dropdown-item">Industrial Product Design</div>
+            <div class="dropdown-item" onclick="openWindow('UX/UI Design')">UX/UI Design</div>
+            <div class="dropdown-item" onclick="openWindow('Graphic Design')">Graphic Design</div>
+            <div class="dropdown-item" onclick="openWindow('Industrial Product Design')">Industrial Product Design</div>
           </div>
         </div>
         <div class="menu-item">
           About
           <div class="dropdown">
-            <div class="dropdown-item">Resume</div>
+            <div class="dropdown-item" onclick="openWindow('Resume')">Resume</div>
           </div>
         </div>
         <div class="menu-item">
           Contact
           <div class="dropdown">
-            <div class="dropdown-item">LinkedIn</div>
+            <div class="dropdown-item" onclick="openWindow('LinkedIn')">LinkedIn</div>
           </div>
         </div>
-    </div>
+      </div>
     </div>
     <div class="menu-right">
       <div class="dropdown-wrapper">
-        Wallpaper:
         <select id="wallpaperSelect" class="wallpaper-dropdown">
           <option value="wallpaper1.jpg">Wave</option>
           <option value="wallpaper2.jpg">Green Hills</option>
@@ -192,35 +205,7 @@
     </div>
   </div>
 
-  <!-- Example Window -->
-  <div class="window" id="aboutWindow">
-    <div class="title-bar" id="aboutTitleBar">About Me</div>
-    <div class="window-content">
-      <p>Hello! I'm Marton Palkovics, a product designer.This website is my playground where I experiment with UI.</p>
-    </div>
-  </div>
-
   <script>
-    // Draggable window for About
-    const windowBox = document.getElementById('aboutWindow');
-    const dragBar = document.getElementById('aboutTitleBar');
-    let isDragging = false, offsetX, offsetY;
-
-    dragBar.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      offsetX = e.clientX - windowBox.offsetLeft;
-      offsetY = e.clientY - windowBox.offsetTop;
-    });
-
-    document.addEventListener('mouseup', () => isDragging = false);
-
-    document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        windowBox.style.left = `${e.clientX - offsetX}px`;
-        windowBox.style.top = `${e.clientY - offsetY}px`;
-      }
-    });
-
     // Wallpaper dropdown logic
     const wallpaperSelect = document.getElementById('wallpaperSelect');
     wallpaperSelect.addEventListener('change', () => {
@@ -233,6 +218,43 @@
     if (saved) {
       document.body.style.backgroundImage = `url('${saved}')`;
       wallpaperSelect.value = saved;
+    }
+
+    // Open window function
+    function openWindow(title) {
+      const win = document.createElement('div');
+      win.className = 'window';
+      win.innerHTML = `
+        <div class="title-bar">
+          <span>${title}</span>
+          <button class="close-btn" onclick="this.parentElement.parentElement.remove()">X</button>
+        </div>
+        <div class="window-content">
+          <p>Content for ${title} goes here.</p>
+        </div>
+      `;
+      document.body.appendChild(win);
+
+      // Center and make draggable
+      win.style.top = '100px';
+      win.style.left = '50%';
+      win.style.transform = 'translateX(-50%)';
+
+      const titleBar = win.querySelector('.title-bar');
+      let isDragging = false, offsetX, offsetY;
+      titleBar.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - win.offsetLeft;
+        offsetY = e.clientY - win.offsetTop;
+      });
+      document.addEventListener('mouseup', () => isDragging = false);
+      document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+          win.style.left = `${e.clientX - offsetX}px`;
+          win.style.top = `${e.clientY - offsetY}px`;
+          win.style.transform = 'none';
+        }
+      });
     }
   </script>
 </body>
