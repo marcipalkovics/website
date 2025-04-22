@@ -43,6 +43,49 @@
       font-size: 16px;
       color: black;
     }
+    .menu-bar {
+      display: inline-flex;
+      margin-left: 20px;
+      gap: 10px;
+    }
+    
+    .menu-item {
+      position: relative;
+      padding: 0 6px;
+      cursor: default;
+    }
+    
+    .menu-item:hover .dropdown {
+      display: block;
+    }
+    
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #e0e0e0;
+      border: 2px solid #000;
+      box-shadow: 2px 2px 0 #888;
+      font-size: 14px;
+      min-width: 120px;
+      z-index: 9999;
+    }
+    
+    .dropdown-item {
+      padding: 4px 10px;
+      border-bottom: 1px solid #bbb;
+      white-space: nowrap;
+    }
+    
+    .dropdown-item:hover {
+      background: #000;
+      color: #fff;
+    }
+    
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
 
     .menu-right {
       display: flex;
@@ -110,7 +153,28 @@
 <body>
 
   <div class="mac-top-bar">
-    <div class="menu-left">Marton Palkovics</div>
+    <div class="menu-left">
+      Marton Palkovics
+      <div class="menu-bar">
+        <div class="menu-item">
+          File
+          <div class="dropdown">
+            <div class="dropdown-item">New Window</div>
+            <div class="dropdown-item">Open...</div>
+            <div class="dropdown-item">Close</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          Edit
+          <div class="dropdown">
+            <div class="dropdown-item">Undo</div>
+            <div class="dropdown-item">Cut</div>
+            <div class="dropdown-item">Copy</div>
+            <div class="dropdown-item">Paste</div>
+          </div>
+        </div>
+    </div>
+    </div>
     <div class="menu-right">
       <div class="dropdown-wrapper">
         <select id="wallpaperSelect" class="wallpaper-dropdown">
