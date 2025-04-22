@@ -37,6 +37,7 @@
       font-family: 'VT323', monospace;
       z-index: 10000;
       box-shadow: 0 2px 0 #999;
+      flex-wrap: wrap;
     }
 
     .menu-left {
@@ -44,11 +45,11 @@
       color: black;
       display: flex;
       align-items: center;
+      gap: 20px;
     }
 
     .menu-bar {
-      display: inline-flex;
-      margin-left: 20px;
+      display: flex;
       gap: 10px;
     }
 
@@ -132,7 +133,7 @@
       border: 2px solid #000;
       box-shadow: 4px 4px 0 #000;
       position: absolute;
-      top: 80px;
+      top: 100px;
       left: 50%;
       transform: translateX(-50%);
       cursor: default;
@@ -160,54 +161,30 @@
 
     .window-content {
       padding: 1rem;
-      text-align: center;
+      text-align: left;
+      font-size: 15px;
     }
 
     @media (max-width: 768px) {
-  .window {
-    position: static !important;
-    transform: none !important;
-    margin: 1rem auto;
-    width: 95%;
-    box-shadow: none;
-  }
+      .window {
+        position: static !important;
+        transform: none !important;
+        margin: 1rem auto;
+        width: 95%;
+        box-shadow: none;
+      }
 
-  .title-bar {
-    cursor: default;
-  }
+      .title-bar {
+        cursor: default;
+      }
 
-  .close-btn {
-    display: none;
-  }
-
-  .mac-top-bar {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 6px;
-    font-size: 14px;
-  }
-
-  .menu-left, .menu-right {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .dropdown {
-    position: static;
-    box-shadow: none;
-    border: 1px solid #000;
-  }
-
-  .dropdown-item {
-    padding: 8px;
-    font-size: 16px;
-  }
-}
-
+      .close-btn {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
-
   <div class="mac-top-bar">
     <div class="menu-left">
       Marton Palkovics
@@ -215,21 +192,21 @@
         <div class="menu-item">
           Work
           <div class="dropdown">
-            <div class="dropdown-item" onclick="openWindow('UX/UI Design')">UX/UI Design</div>
-            <div class="dropdown-item" onclick="openWindow('Graphic Design')">Graphic Design</div>
-            <div class="dropdown-item" onclick="openWindow('Industrial Product Design')">Industrial Product Design</div>
+            <div class="dropdown-item" onclick="openWindow('UX/UI Design', 'User-centered interface and interaction design.')">UX/UI Design</div>
+            <div class="dropdown-item" onclick="openWindow('Graphic Design', 'Posters, branding, typography and visual storytelling.')">Graphic Design</div>
+            <div class="dropdown-item" onclick="openWindow('Industrial Product Design', 'Functional and aesthetic product design for real-world use.')">Industrial Product Design</div>
           </div>
         </div>
         <div class="menu-item">
           About
           <div class="dropdown">
-            <div class="dropdown-item" onclick="openWindow('Resume')">Resume</div>
+            <div class="dropdown-item" onclick="openWindow('Resume', 'Education, work experience, tools & tech stack.')">Resume</div>
           </div>
         </div>
         <div class="menu-item">
           Contact
           <div class="dropdown">
-            <div class="dropdown-item" onclick="openWindow('LinkedIn')">LinkedIn</div>
+            <div class="dropdown-item" onclick="openWindow('LinkedIn', 'You can find me on LinkedIn: linkedin.com/in/yourprofile')">LinkedIn</div>
           </div>
         </div>
       </div>
@@ -262,8 +239,8 @@
       wallpaperSelect.value = saved;
     }
 
-    // Open window function
-    function openWindow(title) {
+    // Open window with content
+    function openWindow(title, content) {
       const win = document.createElement('div');
       win.className = 'window';
       win.innerHTML = `
@@ -272,41 +249,30 @@
           <button class="close-btn" onclick="this.parentElement.parentElement.remove()">X</button>
         </div>
         <div class="window-content">
-          <p>Content for ${title} goes here.</p>
+          <p>${content}</p>
         </div>
       `;
       document.body.appendChild(win);
 
       // Center and make draggable
-      win.style.top = '100px';
-      win.style.left = '50%';
-      win.style.transform = 'translateX(-50%)';
-
-      const titleBar = win.querySelector('.title-bar');
-      let isDragging = false, offsetX, offsetY;
-      titleBar.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - win.offsetLeft;
-        offsetY = e.clientY - win.offsetTop;
-      });
       if (!/Mobi|Android/i.test(navigator.userAgent)) {
-      titleBar.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - win.offsetLeft;
-        offsetY = e.clientY - win.offsetTop;
-      });
-      document.addEventListener('mouseup', () => isDragging = false);
-      document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-          win.style.left = `${e.clientX - offsetX}px`;
-          win.style.top = `${e.clientY - offsetY}px`;
-          win.style.transform = 'none';
-        }
-      });
+        const titleBar = win.querySelector('.title-bar');
+        let isDragging = false, offsetX, offsetY;
+        titleBar.addEventListener('mousedown', (e) => {
+          isDragging = true;
+          offsetX = e.clientX - win.offsetLeft;
+          offsetY = e.clientY - win.offsetTop;
+        });
+        document.addEventListener('mouseup', () => isDragging = false);
+        document.addEventListener('mousemove', (e) => {
+          if (isDragging) {
+            win.style.left = `${e.clientX - offsetX}px`;
+            win.style.top = `${e.clientY - offsetY}px`;
+            win.style.transform = 'none';
+          }
+        });
+      }
     }
-
-    }
-    
   </script>
 </body>
 </html>
