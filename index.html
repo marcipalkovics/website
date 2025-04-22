@@ -49,24 +49,32 @@
       align-items: center;
     }
 
-    .wallpaper-switcher {
+    .wallpaper-dropdown {
       background: #d0d0d0;
       border: 2px solid black;
       padding: 3px;
-      display: flex;
-      gap: 4px;
-      box-shadow: 2px 2px 0 #777;
-    }
-
-    .wall-btn {
-      width: 24px;
-      height: 24px;
-      background-size: cover;
-      background-position: center;
-      border: 1px solid #000;
-      outline: none;
+      font-family: 'VT323', monospace;
+      font-size: 14px;
+      color: #000;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
       cursor: pointer;
       box-shadow: inset -1px -1px #666, inset 1px 1px #eee;
+    }
+
+    .dropdown-wrapper {
+      position: relative;
+    }
+
+    .active-indicator {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #000;
+      margin-left: 8px;
+      border: 1px solid #fff;
+      box-shadow: 1px 1px 0 #aaa;
     }
 
     .window {
@@ -104,11 +112,14 @@
   <div class="mac-top-bar">
     <div class="menu-left">Marton Palkovics</div>
     <div class="menu-right">
-      <div class="wallpaper-switcher">
-        <button class="wall-btn" data-wall="wallpaper1.jpg" style="background-image: url('thumb1.jpg');"></button>
-        <button class="wall-btn" data-wall="wallpaper2.jpg" style="background-image: url('thumb2.jpg');"></button>
-        <button class="wall-btn" data-wall="wallpaper3.jpg" style="background-image: url('thumb3.jpg');"></button>
-        <button class="wall-btn" data-wall="wallpaper4.jpg" style="background-image: url('thumb4.jpg');"></button>
+      <div class="dropdown-wrapper">
+        <select id="wallpaperSelect" class="wallpaper-dropdown">
+          <option value="wallpaper1.jpg">Wave</option>
+          <option value="wallpaper2.jpg">Green Hills</option>
+          <option value="wallpaper3.jpg">Orange Abstract</option>
+          <option value="wallpaper4.jpg">Blue Grid</option>
+        </select>
+        <span class="active-indicator"></span>
       </div>
     </div>
   </div>
@@ -117,12 +128,12 @@
   <div class="window" id="aboutWindow">
     <div class="title-bar" id="aboutTitleBar">About Me</div>
     <div class="window-content">
-      <p>Hello! I'm Marton Palkovics, a Produc Designer.</p>
+      <p>Hello! I'm Marton Palkovics, a product designer.This website is my playground where I experiment with UI.</p>
     </div>
   </div>
 
   <script>
-    // Draggable window
+    // Draggable window for About
     const windowBox = document.getElementById('aboutWindow');
     const dragBar = document.getElementById('aboutTitleBar');
     let isDragging = false, offsetX, offsetY;
@@ -142,18 +153,18 @@
       }
     });
 
-    // Wallpaper switcher + save
-    document.querySelectorAll('.wall-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const wallpaper = btn.getAttribute('data-wall');
-        document.body.style.backgroundImage = `url('${wallpaper}')`;
-        localStorage.setItem('wallpaper', wallpaper);
-      });
+    // Wallpaper dropdown logic
+    const wallpaperSelect = document.getElementById('wallpaperSelect');
+    wallpaperSelect.addEventListener('change', () => {
+      const wallpaper = wallpaperSelect.value;
+      document.body.style.backgroundImage = `url('${wallpaper}')`;
+      localStorage.setItem('wallpaper', wallpaper);
     });
 
     const saved = localStorage.getItem('wallpaper');
     if (saved) {
       document.body.style.backgroundImage = `url('${saved}')`;
+      wallpaperSelect.value = saved;
     }
   </script>
 </body>
