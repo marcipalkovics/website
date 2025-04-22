@@ -11,15 +11,62 @@
       margin: 0;
       padding: 0;
     }
+
     body {
-      margin: 0;
-      padding: 0;
       background-image: url('wallpaper1.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      background-attachment: fixed;
       font-family: 'VT323', monospace;
       overflow-x: hidden;
+    }
+
+    .mac-top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 26px;
+      background: #c0c0c0;
+      border-bottom: 2px solid black;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+      font-family: 'VT323', monospace;
+      z-index: 10000;
+      box-shadow: 0 2px 0 #999;
+    }
+
+    .menu-left {
+      font-size: 16px;
+      color: black;
+    }
+
+    .menu-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .wallpaper-switcher {
+      background: #d0d0d0;
+      border: 2px solid black;
+      padding: 3px;
+      display: flex;
+      gap: 4px;
+      box-shadow: 2px 2px 0 #777;
+    }
+
+    .wall-btn {
+      width: 24px;
+      height: 24px;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid #000;
+      outline: none;
+      cursor: pointer;
+      box-shadow: inset -1px -1px #666, inset 1px 1px #eee;
     }
 
     .window {
@@ -46,238 +93,56 @@
       cursor: move;
     }
 
-    .buttons {
-      display: flex;
-      gap: 4px;
-    }
-
-    .btn {
-      width: 12px;
-      height: 12px;
-      background: #000;
-      border: 1px solid #000;
-    }
-
-    .btn.close { background: #ff5f56; }
-    .btn.minimize { background: #ffbd2e; }
-    .btn.zoom { background: #27c93f; }
-
-    .title-text {
-      flex: 1;
-      text-align: center;
-      font-weight: bold;
-    }
-    .window {
-      position: absolute;
-      width: 300px;
-      border: 2px solid #000;
-      background-color: #fff;
-      box-shadow: 5px 5px 0px #888;
-    }
-
-    .title-bar {
-      background-color: #ccc;
-      padding: 5px;
-      cursor: move;
-      font-weight: bold;
-    }
-
     .window-content {
-      padding: 10px;
+      padding: 1rem;
+      text-align: center;
     }
-
-    .profile-pic {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 2px solid #000;
-      object-fit: cover;
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      margin: 0.5rem 0;
-      font-size: 1.6rem;
-    }
-
-    p.subtitle {
-      margin-bottom: 1.5rem;
-      color: #444;
-    }
-
-    .badges {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .badge {
-      text-decoration: none;
-      color: #000;
-      border: 1px solid #000;
-      padding: 0.4rem 0.8rem;
-      background: #fff;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: background 0.2s;
-    }
-
-    .badge:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    .badge img {
-      width: 16px;
-      height: 16px;
-    }
-
-   footer {
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: #777;
-    }
-
-    .mac-top-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 26px;
-      background: #c0c0c0;
-      border-bottom: 2px solid black;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 8px;
-      font-family: 'VT323', monospace;
-      z-index: 10000;
-      box-shadow: 0 2px 0 #999;
-    }
-    
-    .menu-left {
-      font-size: 16px;
-      color: black;
-    }
-    
-    .menu-right {
-      display: flex;
-      align-items: center;
-    }
-    
-    .wallpaper-switcher {
-      background: #d0d0d0;
-      border: 2px solid black;
-      padding: 3px;
-      display: flex;
-      gap: 4px;
-      box-shadow: 2px 2px 0 #777;
-    }
-    
-    .wall-btn {
-      width: 24px;
-      height: 24px;
-      background-size: cover;
-      background-position: center;
-      border: 1px solid #000;
-      outline: none;
-      cursor: pointer;
-      box-shadow: inset -1px -1px #666, inset 1px 1px #eee;
-    }
-
   </style>
 </head>
 <body>
-  
+
   <div class="mac-top-bar">
-  <div class="menu-left">Marton Palkovics</div>
-  <div class="menu-right">
-    <div class="wallpaper-switcher">
-      <button class="wall-btn" data-wall="wallpaper1.jpg" style="background-image: url('thumb1.jpg');"></button>
-      <button class="wall-btn" data-wall="wallpaper2.jpg" style="background-image: url('thumb2.jpg');"></button>
-      <button class="wall-btn" data-wall="wallpaper3.jpg" style="background-image: url('thumb3.jpg');"></button>
-      <button class="wall-btn" data-wall="wallpaper4.jpg" style="background-image: url('thumb4.jpg');"></button>
+    <div class="menu-left">Marton Palkovics</div>
+    <div class="menu-right">
+      <div class="wallpaper-switcher">
+        <button class="wall-btn" data-wall="wallpaper1.jpg" style="background-image: url('thumb1.jpg');"></button>
+        <button class="wall-btn" data-wall="wallpaper2.jpg" style="background-image: url('thumb2.jpg');"></button>
+        <button class="wall-btn" data-wall="wallpaper3.jpg" style="background-image: url('thumb3.jpg');"></button>
+        <button class="wall-btn" data-wall="wallpaper4.jpg" style="background-image: url('thumb4.jpg');"></button>
+      </div>
     </div>
   </div>
-</div>
 
-    <div class="window" id="aboutWindow">
-      <div class="title-bar" id="aboutTitleBar">
-        <div class="buttons">
-          <div class="btn close"></div>
-          <div class="btn minimize"></div>
-          <div class="btn zoom"></div>
-        </div>
-        About Me
-      </div>
-      <div class="window-content">
-        <img src="https://media.licdn.com/dms/image/v2/D4D03AQE1LYhMEDweaQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1694522284828?e=1750896000&v=beta&t=9KmVpBrqtzgwM-CuxCo2BgR8NGBwqyvHgdmoomWh3KY" alt="Marton Palkovics" class="profile-pic" />
+  <!-- Example Window -->
+  <div class="window" id="aboutWindow">
+    <div class="title-bar" id="aboutTitleBar">About Me</div>
+    <div class="window-content">
+      <p>Hello! I'm Marton Palkovics, a Produc Designer.</p>
+    </div>
+  </div>
 
-        <h1>Marton Palkovics</h1>
-        <p class="subtitle">Product Designer</p>
-  
-        <div class="badges">
-          <a href="mailto:your@email.com" class="badge">
-            <img src="https://img.icons8.com/pastel-glyph/64/000000/new-post--v1.png" alt="Email" />
-            Email
-          </a>
-          <a href="https://github.com/marcipalkovics" class="badge" target="_blank">
-            <img src="https://img.icons8.com/ios-filled/50/000000/github.png" alt="GitHub" />
-            GitHub
-          </a>
-          <a href="https://www.linkedin.com/in/your-profile" class="badge" target="_blank">
-            <img src="https://img.icons8.com/ios-filled/50/000000/linkedin.png" alt="LinkedIn" />
-            LinkedIn
-          </a>
-        </div>
-      </div>
-    </div>   
-    
   <script>
-    const aboutWindow = document.getElementById('aboutWindow');
-    const aboutTitleBar = document.getElementById('aboutTitleBar');
-    
-    aboutTitleBar.onmousedown = function (e) {
-      let offsetX = e.clientX - aboutWindow.offsetLeft;
-      let offsetY = e.clientY - aboutWindow.offsetTop;
-    
-      function mouseMoveHandler(e) {
-        aboutWindow.style.top = `${e.clientY - offsetY}px`;
-        aboutWindow.style.left = `${e.clientX - offsetX}px`;
-      }
-    
-      function mouseUpHandler() {
-        document.removeEventListener('mousemove', mouseMoveHandler);
-        document.removeEventListener('mouseup', mouseUpHandler);
-      }
-    
-      document.addEventListener('mousemove', mouseMoveHandler);
-      document.addEventListener('mouseup', mouseUpHandler);
-    };
+    // Draggable window
+    const windowBox = document.getElementById('aboutWindow');
+    const dragBar = document.getElementById('aboutTitleBar');
+    let isDragging = false, offsetX, offsetY;
 
-    const wallpaperWindow = document.getElementById('wallpaperWindow');
-    const wallpaperTitleBar = document.getElementById('wallpaperTitleBar');
-    
-    wallpaperTitleBar.onmousedown = function (e) {
-      let offsetX = e.clientX - wallpaperWindow.offsetLeft;
-      let offsetY = e.clientY - wallpaperWindow.offsetTop;
-    
-      function mouseMoveHandler(e) {
-        wallpaperWindow.style.top = `${e.clientY - offsetY}px`;
-        wallpaperWindow.style.left = `${e.clientX - offsetX}px`;
-      }
-    
-      function mouseUpHandler() {
-        document.removeEventListener('mousemove', mouseMoveHandler);
-        document.removeEventListener('mouseup', mouseUpHandler);
-      }
-    
-      document.addEventListener('mousemove', mouseMoveHandler);
-      document.addEventListener('mouseup', mouseUpHandler);
-    };
+    dragBar.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      offsetX = e.clientX - windowBox.offsetLeft;
+      offsetY = e.clientY - windowBox.offsetTop;
+    });
 
+    document.addEventListener('mouseup', () => isDragging = false);
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        windowBox.style.left = `${e.clientX - offsetX}px`;
+        windowBox.style.top = `${e.clientY - offsetY}px`;
+      }
+    });
+
+    // Wallpaper switcher + save
     document.querySelectorAll('.wall-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const wallpaper = btn.getAttribute('data-wall');
@@ -286,13 +151,10 @@
       });
     });
 
-    // Load saved wallpaper
     const saved = localStorage.getItem('wallpaper');
     if (saved) {
       document.body.style.backgroundImage = `url('${saved}')`;
     }
-
   </script>
-
 </body>
 </html>
