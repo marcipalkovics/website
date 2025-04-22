@@ -162,6 +162,48 @@
       padding: 1rem;
       text-align: center;
     }
+
+    @media (max-width: 768px) {
+  .window {
+    position: static !important;
+    transform: none !important;
+    margin: 1rem auto;
+    width: 95%;
+    box-shadow: none;
+  }
+
+  .title-bar {
+    cursor: default;
+  }
+
+  .close-btn {
+    display: none;
+  }
+
+  .mac-top-bar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .menu-left, .menu-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdown {
+    position: static;
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+
+  .dropdown-item {
+    padding: 8px;
+    font-size: 16px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -247,6 +289,12 @@
         offsetX = e.clientX - win.offsetLeft;
         offsetY = e.clientY - win.offsetTop;
       });
+      if (!/Mobi|Android/i.test(navigator.userAgent)) {
+      titleBar.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - win.offsetLeft;
+        offsetY = e.clientY - win.offsetTop;
+      });
       document.addEventListener('mouseup', () => isDragging = false);
       document.addEventListener('mousemove', (e) => {
         if (isDragging) {
@@ -256,6 +304,9 @@
         }
       });
     }
+
+    }
+    
   </script>
 </body>
 </html>
